@@ -3,6 +3,7 @@ package com.thinhtran.accountservice.service;
 
 import com.thinhtran.accountservice.dto.request.UserCreateRequest;
 import com.thinhtran.accountservice.dto.request.UserUpdateRequest;
+import com.thinhtran.accountservice.dto.response.UserResponse;
 import com.thinhtran.accountservice.entity.User;
 
 import java.util.List;
@@ -14,9 +15,9 @@ public interface UserService {
 
     User createRequest(UserCreateRequest request);
 
-    User getUserById(UUID userId);
+    UserResponse getUserById(UUID userId);
 
-    User updateRequest(UUID userId, UserUpdateRequest request);
+    UserResponse updateRequest(UUID userId, UserUpdateRequest request);
 
     void deleteUser(UUID userId);
 }

@@ -2,11 +2,16 @@ package com.thinhtran.accountservice.service.impl;
 
 import com.thinhtran.accountservice.dto.request.UserCreateRequest;
 import com.thinhtran.accountservice.dto.request.UserUpdateRequest;
+import com.thinhtran.accountservice.dto.response.UserResponse;
 import com.thinhtran.accountservice.entity.User;
 import com.thinhtran.accountservice.exception.AppException;
 import com.thinhtran.accountservice.exception.ErrorCode;
+import com.thinhtran.accountservice.mapper.UserMapper;
 import com.thinhtran.accountservice.repository.UserRepository;
 import com.thinhtran.accountservice.service.UserService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +19,13 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
+
+    UserMapper userMapper;
 
     @Override
     public List<User> getAllUsers() {
@@ -26,37 +34,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createRequest(UserCreateRequest request) {
-        User user = new User();
 
         if(userRepository.existsByUsername(request.getUsername())){
             throw new AppException(ErrorCode.USER_EXISTED);
         }
 
-        user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setDob(request.getDob());
-
+        User user = userMapper.toUser(request);
         return userRepository.save(user);
     }
 
     @Override
-    public User getUserById(UUID userId) {
-        return userRepository.findById(userId)
+    public UserResponse getUserById(UUID userId) {
+        return userMapper.toUserResponse(userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User Not Found")));
+    }
+
+    @Override
+    public UserResponse updateRequest(UUID userId, UserUpdateRequest request) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User Not Found"));
-    }
+        userMapper.updateUser(user, request);
 
-    @Override
-    public User updateRequest(UUID userId, UserUpdateRequest request) {
-        User user = getUserById(userId);
-
-        user.setPassword(request.getPassword());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setDob(request.getDob());
-
-        return userRepository.save(user);
+        return userMapper.toUserResponse(userRepository.save(user));
     }
 
     @Override

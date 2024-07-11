@@ -1,6 +1,5 @@
 package com.thinhtran.accountservice.exception;
 
-
 import com.thinhtran.accountservice.dto.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

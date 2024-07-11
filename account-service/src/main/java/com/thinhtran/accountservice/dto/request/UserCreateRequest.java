@@ -1,25 +1,27 @@
 package com.thinhtran.accountservice.dto.request;
 
-import com.thinhtran.accountservice.exception.ErrorCode;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserCreateRequest {
 
     @Size(min = 3, message = "USERNAME_INVALID")
-    private String username;
+    String username;
 
     @Size(min = 8, max = 50, message = "PASSWORD_INVALID")
-    private String password;
+    String password;
 
-    private String firstName;
+    String firstName;
 
-    private String lastName;
+    String lastName;
 
-    private LocalDate dob;
+    LocalDate dob;
 }

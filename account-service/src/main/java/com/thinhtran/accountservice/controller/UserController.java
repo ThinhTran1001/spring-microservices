@@ -4,6 +4,7 @@ package com.thinhtran.accountservice.controller;
 import com.thinhtran.accountservice.dto.request.UserCreateRequest;
 import com.thinhtran.accountservice.dto.request.UserUpdateRequest;
 import com.thinhtran.accountservice.dto.response.ApiResponse;
+import com.thinhtran.accountservice.dto.response.UserResponse;
 import com.thinhtran.accountservice.entity.User;
 import com.thinhtran.accountservice.service.UserService;
 import jakarta.validation.Valid;
@@ -33,12 +34,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    User getUserById(@PathVariable("userId") UUID userId){
+    UserResponse getUserById(@PathVariable("userId") UUID userId){
         return userService.getUserById(userId);
     }
 
     @PutMapping("/{userId}")
-    User updateUser(
+    UserResponse updateUser(
             @PathVariable("userId") UUID userId,
             @RequestBody UserUpdateRequest userUpdateRequest){
         return userService.updateRequest(userId, userUpdateRequest);
