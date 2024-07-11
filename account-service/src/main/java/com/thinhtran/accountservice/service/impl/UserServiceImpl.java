@@ -3,6 +3,8 @@ package com.thinhtran.accountservice.service.impl;
 import com.thinhtran.accountservice.dto.request.UserCreateRequest;
 import com.thinhtran.accountservice.dto.request.UserUpdateRequest;
 import com.thinhtran.accountservice.entity.User;
+import com.thinhtran.accountservice.exception.AppException;
+import com.thinhtran.accountservice.exception.ErrorCode;
 import com.thinhtran.accountservice.repository.UserRepository;
 import com.thinhtran.accountservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
 
         if(userRepository.existsByUsername(request.getUsername())){
-            throw new RuntimeException("User existed");
+            throw new AppException(ErrorCode.USER_EXISTED);
         }
 
         user.setUsername(request.getUsername());

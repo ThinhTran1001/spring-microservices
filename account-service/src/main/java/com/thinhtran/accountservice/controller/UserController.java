@@ -3,6 +3,7 @@ package com.thinhtran.accountservice.controller;
 
 import com.thinhtran.accountservice.dto.request.UserCreateRequest;
 import com.thinhtran.accountservice.dto.request.UserUpdateRequest;
+import com.thinhtran.accountservice.dto.response.ApiResponse;
 import com.thinhtran.accountservice.entity.User;
 import com.thinhtran.accountservice.service.UserService;
 import jakarta.validation.Valid;
@@ -25,8 +26,10 @@ public class UserController {
     }
 
     @PostMapping
-    User createUser(@RequestBody @Valid UserCreateRequest userCreateRequest){
-        return userService.createRequest(userCreateRequest);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreateRequest request){
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.createRequest(request));
+        return apiResponse;
     }
 
     @GetMapping("/{userId}")
