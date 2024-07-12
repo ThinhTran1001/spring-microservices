@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface UserService {
 
-    List<User> getAllUsers();
+    List<UserResponse> getAllUsers();
 
     User createRequest(UserCreateRequest request);
 
