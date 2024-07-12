@@ -10,7 +10,8 @@ public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized error!"),
     KEY_INVALID(1002, "Invalid message key!"),
     USERNAME_INVALID(1003, "Username must be at least 3 characters!"),
-    PASSWORD_INVALID(1004, "Password must be in range 8 to 50 characters!");
+    PASSWORD_INVALID(1004, "Password must be in range 8 to 50 characters!"),
+    USER_NOT_EXISTED(1005, "User is not existed!");
 
     private final Integer code;
     private final String message;

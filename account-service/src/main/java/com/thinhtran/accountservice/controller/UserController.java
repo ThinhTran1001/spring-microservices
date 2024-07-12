@@ -8,7 +8,9 @@ import com.thinhtran.accountservice.dto.response.UserResponse;
 import com.thinhtran.accountservice.entity.User;
 import com.thinhtran.accountservice.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,10 +18,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    UserService userService;
 
     @GetMapping
     List<User> getAllUsers(){
