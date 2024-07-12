@@ -13,7 +13,7 @@ public interface UserService {
 
     List<UserResponse> getAllUsers();
 
-    User createRequest(UserCreateRequest request);
+    UserResponse createRequest(UserCreateRequest request);
 
     UserResponse getUserById(UUID userId);
 
