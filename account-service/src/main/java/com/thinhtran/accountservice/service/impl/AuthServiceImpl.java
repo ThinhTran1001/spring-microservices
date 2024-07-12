@@ -17,6 +17,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,8 @@ public class AuthServiceImpl implements AuthService {
     UserRepository userRepository;
 
     @NonFinal
-    protected static final String SIGN_KEY =
-            "/F1P+ARvkjHXeNjU/h3jPTDvEy9ZqURUzXELYrD9qKV99NY0w6kp+uly68PiFVCO\n";
+    @Value("${jwt.signerKey}")
+    protected String SIGN_KEY;
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
