@@ -4,6 +4,7 @@ import com.thinhtran.accountservice.dto.request.UserCreateRequest;
 import com.thinhtran.accountservice.dto.request.UserUpdateRequest;
 import com.thinhtran.accountservice.dto.response.UserResponse;
 import com.thinhtran.accountservice.entity.User;
+import com.thinhtran.accountservice.enums.Role;
 import com.thinhtran.accountservice.exception.AppException;
 import com.thinhtran.accountservice.exception.ErrorCode;
 import com.thinhtran.accountservice.mapper.UserMapper;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +30,8 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     UserMapper userMapper;
+
+    PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserResponse> getAllUsers() {
@@ -43,8 +47,13 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = userMapper.toUser(request);
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        HashSet<String> roles = new HashSet<>();
+        roles.add(Role.USER.name());
+
+        user.setRoles(roles);
+
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
