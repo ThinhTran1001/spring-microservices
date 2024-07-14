@@ -13,6 +13,9 @@ import com.thinhtran.accountservice.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
@@ -31,8 +35,10 @@ public class UserServiceImpl implements UserService {
 
     PasswordEncoder passwordEncoder;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public List<UserResponse> getAllUsers() {
+        log.info("In method getUser");
         return userRepository.findAll()
                 .stream().map(userMapper::toUserResponse).toList();
     }
@@ -50,6 +56,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
+    
+
+    @PostAuthorize("returnObject.username == authentication.name")
     @Override
     public UserResponse getUserById(UUID userId) {
         return userMapper.toUserResponse(userRepository.findById(userId)
