@@ -40,7 +40,6 @@ public class UserServiceImpl implements UserService {
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public List<UserResponse> getAllUsers() {
-        log.info("In method getUser");
         return userRepository.findAll()
                 .stream().map(userMapper::toUserResponse).toList();
     }
