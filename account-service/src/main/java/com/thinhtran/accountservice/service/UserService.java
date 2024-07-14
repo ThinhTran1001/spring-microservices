@@ -20,4 +20,6 @@ public interface UserService {
     UserResponse updateRequest(UUID userId, UserUpdateRequest request);
 
     void deleteUser(UUID userId);
+
+    UserResponse getUserInfo();
 }
