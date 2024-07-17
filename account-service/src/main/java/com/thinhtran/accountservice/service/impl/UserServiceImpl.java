@@ -8,6 +8,7 @@ import com.thinhtran.accountservice.enums.Role;
 import com.thinhtran.accountservice.exception.AppException;
 import com.thinhtran.accountservice.exception.ErrorCode;
 import com.thinhtran.accountservice.mapper.UserMapper;
+import com.thinhtran.accountservice.repository.RoleRepository;
 import com.thinhtran.accountservice.repository.UserRepository;
 import com.thinhtran.accountservice.service.UserService;
 import lombok.AccessLevel;
@@ -37,6 +38,8 @@ public class UserServiceImpl implements UserService {
 
     PasswordEncoder passwordEncoder;
 
+    RoleRepository roleRepository;
+
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public List<UserResponse> getAllUsers() {
@@ -53,7 +56,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         HashSet<String> roles = new HashSet<>();
         roles.add(Role.USER.name());
-        user.setRoles(roles);
+        //user.setRoles(roles);
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
@@ -69,6 +72,10 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User Not Found"));
         userMapper.updateUser(user, request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        var roles = roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(roles));
+
         return userMapper.toUserResponse(userRepository.save(user));
     }
 

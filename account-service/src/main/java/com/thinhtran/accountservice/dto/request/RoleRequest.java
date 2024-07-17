@@ -1,26 +1,21 @@
 package com.thinhtran.accountservice.dto.request;
 
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserUpdateRequest {
+public class RoleRequest {
+    String name;
 
-    String password;
+    String description;
 
-    String firstName;
-
-    String lastName;
-
-    LocalDate dob;
-
-    List<String> roles;
+    Set<String> permissions;
 
 }
