@@ -1,5 +1,6 @@
 package com.thinhtran.accountservice.dto.request;
 
+import com.thinhtran.accountservice.validator.DobConstraint;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,6 +20,7 @@ public class UserUpdateRequest {
 
     String lastName;
 
+    @DobConstraint(min = 18, message = "INVALID_DOB")
     LocalDate dob;
 
     List<String> roles;

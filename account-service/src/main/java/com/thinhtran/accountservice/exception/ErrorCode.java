@@ -15,7 +15,8 @@ public enum ErrorCode {
     PASSWORD_INVALID("error", "Password must be in range 8 to 50 characters!", HttpStatus.BAD_REQUEST),
     USER_NOT_EXISTED("error", "User is not existed!", HttpStatus.NOT_FOUND),
     UNAUTHENTICATED("error", "Unauthenticated!", HttpStatus.UNAUTHORIZED),
-    UNAUTHORIZED("error", "You do not have permission!", HttpStatus.FORBIDDEN);
+    UNAUTHORIZED("error", "You do not have permission!", HttpStatus.FORBIDDEN),
+    INVALID_DOB("error", "Invalid date of birth", HttpStatus.BAD_REQUEST);
 
     private final String status;
     private final String message;

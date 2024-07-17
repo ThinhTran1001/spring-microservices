@@ -1,5 +1,6 @@
 package com.thinhtran.accountservice.dto.request;
 
+import com.thinhtran.accountservice.validator.DobConstraint;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,5 +24,6 @@ public class UserCreateRequest {
 
     String lastName;
 
+    @DobConstraint(min = 18, message = "INVALID_DOB")
     LocalDate dob;
 }

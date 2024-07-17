@@ -5,15 +5,12 @@ import com.thinhtran.accountservice.dto.request.UserCreateRequest;
 import com.thinhtran.accountservice.dto.request.UserUpdateRequest;
 import com.thinhtran.accountservice.dto.response.ApiResponse;
 import com.thinhtran.accountservice.dto.response.UserResponse;
-import com.thinhtran.accountservice.entity.User;
 import com.thinhtran.accountservice.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
