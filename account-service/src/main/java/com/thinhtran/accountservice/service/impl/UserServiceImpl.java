@@ -1,15 +1,18 @@
 package com.thinhtran.accountservice.service.impl;
 
+import com.thinhtran.accountservice.constant.PredefinedRole;
 import com.thinhtran.accountservice.dto.request.UserCreateRequest;
 import com.thinhtran.accountservice.dto.request.UserUpdateRequest;
 import com.thinhtran.accountservice.dto.response.UserResponse;
+import com.thinhtran.accountservice.entity.Role;
 import com.thinhtran.accountservice.entity.User;
-import com.thinhtran.accountservice.enums.Role;
 import com.thinhtran.accountservice.exception.AppException;
 import com.thinhtran.accountservice.exception.ErrorCode;
+import com.thinhtran.accountservice.mapper.ProfileMapper;
 import com.thinhtran.accountservice.mapper.UserMapper;
 import com.thinhtran.accountservice.repository.RoleRepository;
 import com.thinhtran.accountservice.repository.UserRepository;
+import com.thinhtran.accountservice.repository.httpclient.ProfileClient;
 import com.thinhtran.accountservice.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +43,10 @@ public class UserServiceImpl implements UserService {
 
     RoleRepository roleRepository;
 
+    ProfileClient profileClient;
+
+    ProfileMapper profileMapper;
+
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public List<UserResponse> getAllUsers() {
@@ -54,10 +61,18 @@ public class UserServiceImpl implements UserService {
         }
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        HashSet<String> roles = new HashSet<>();
-        roles.add(Role.USER.name());
-        //user.setRoles(roles);
-        return userMapper.toUserResponse(userRepository.save(user));
+        HashSet<Role> roles = new HashSet<>();
+        roleRepository.findById(PredefinedRole.USER_ROLE).ifPresent(roles::add);
+        user.setRoles(roles);
+        user = userRepository.save(user);
+
+        var profileRequest = profileMapper.toProfileCreationRequest(request);
+        profileRequest.setUserId(String.valueOf(user.getId()));
+        var profileResponse = profileClient.createProfile(profileRequest);
+
+        log.info("Created profile: {}", profileResponse.toString());
+
+        return userMapper.toUserResponse(user);
     }
 
     @PostAuthorize("returnObject.username == authentication.name")

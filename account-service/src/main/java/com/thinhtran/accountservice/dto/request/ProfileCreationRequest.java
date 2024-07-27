@@ -1,4 +1,4 @@
-package com.thinhtran.profile_service.dto.response;
+package com.thinhtran.accountservice.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -6,13 +6,11 @@ import lombok.experimental.FieldDefaults;
 import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProfileResponse {
-
-    String id;
+public class ProfileCreationRequest {
 
     String userId;
 
