@@ -29,4 +29,12 @@ public class ProfileServiceImpl implements ProfileService {
 
         return profileMapper.toProfileResponse(profile);
     }
+
+    @Override
+    public ProfileResponse getProfile(String id) {
+        Profile profile = profileRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+
+        return profileMapper.toProfileResponse(profile);
+    }
 }
