@@ -1,4 +1,4 @@
-package com.thinhtran.accountservice.dto.response;
+package com.thinhtran.apigateway.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,8 +8,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class IntrospectResponse {
+public class IntrospectRequest {
 
-    boolean valid;
+    String token;
 
 }

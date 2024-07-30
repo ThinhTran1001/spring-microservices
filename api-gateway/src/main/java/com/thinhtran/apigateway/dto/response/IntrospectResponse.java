@@ -1,4 +1,4 @@
-package com.thinhtran.accountservice.dto.response;
+package com.thinhtran.apigateway.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
