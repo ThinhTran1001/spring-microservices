@@ -17,3 +17,7 @@ jwt:
   signer-key: "/F1P+ARvkjHXeNjU/h3jPTDvEy9ZqURUzXELYrD9qKV99NY0w6kp+uly68PiFVCO\n"
   valid-duration: 3600 # in second
   refreshable-duration: 120 # in seconds
+
+app:
+  services:
+    profile: http://localhost:8081/profile

@@ -1,4 +1,4 @@
-package com.thinhtran.profile_service;
+package com.thinhtran.profile_service.controller;
 
 import com.thinhtran.profile_service.dto.request.ProfileCreationRequest;
 import com.thinhtran.profile_service.dto.response.ProfileResponse;
@@ -15,12 +15,7 @@ public class ProfileController {
 
     ProfileService profileService;
 
-    @PostMapping("/users")
-    ProfileResponse createProfile(@RequestBody ProfileCreationRequest request){
-        return profileService.createProfile(request);
-    }
-
-    @GetMapping("/{profileId}")
+    @GetMapping("/users/{profileId}")
     ProfileResponse getProfile(@PathVariable String profileId){
         return profileService.getProfile(profileId);
     }
