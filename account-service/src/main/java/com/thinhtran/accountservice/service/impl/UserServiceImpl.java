@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         var profileRequest = profileMapper.toProfileCreationRequest(request);
         profileRequest.setUserId(String.valueOf(user.getId()));
         var profileResponse = profileClient.createProfile(profileRequest);
-
+        
         log.info("Created profile: {}", profileResponse.toString());
 
         return userMapper.toUserResponse(user);
