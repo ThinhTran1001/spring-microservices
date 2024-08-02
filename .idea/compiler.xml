@@ -10,7 +10,7 @@
         <module name="api-gateway" />
         <module name="booking-service" />
       </profile>
-      <profile name="Annotation profile for profile-service" enabled="true">
+      <profile name="Annotation profile for notification-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -24,6 +24,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
         </processorPath>
         <module name="account-service" />
+        <module name="notification-service" />
         <module name="profile-service" />
       </profile>
     </annotationProcessing>
@@ -37,6 +38,7 @@
       <module name="api-gateway" options="-parameters" />
       <module name="booking-service" options="-parameters" />
       <module name="bookingservice" options="-parameters" />
+      <module name="notification-service" options="-parameters -Amapstruct.suppressGeneratorTimestamp=true -Amapstruct.defaultComponentModel=spring -Amapstruct.verbose=true" />
       <module name="profile-service" options="-parameters -Amapstruct.suppressGeneratorTimestamp=true -Amapstruct.defaultComponentModel=spring -Amapstruct.verbose=true" />
     </option>
   </component>
